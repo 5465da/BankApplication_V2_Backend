@@ -1,8 +1,10 @@
 # BankApplication_Phase2_Backend
 
 ## Setup
-Create MailGun Account
+### Create MailGun Account
 Add the respective apikey and domainurl
+### MongoDB 
+Add the respective url mongodb
 
 ## src/main/resource
 ##### application.properties
