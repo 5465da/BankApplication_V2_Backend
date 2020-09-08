@@ -60,7 +60,7 @@ public class UserController {
 		JSONObject obj = new JSONObject();
 		obj.put("token", jwt);
 		obj.put("account_status", ((User) authentication.getPrincipal()).getAccount_status());
-		// obj.put("role", ((List<User>) authentication.getAuthorities()).get(0));
+	    obj.put("role", ((List<User>) authentication.getAuthorities()).get(0));
 		return new ResponseEntity<String>(obj.toString(), HttpStatus.OK);
 	}
 
