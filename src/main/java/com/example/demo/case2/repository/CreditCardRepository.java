@@ -11,7 +11,6 @@ import com.example.demo.case2.models.CreditCard;
 
 public interface CreditCardRepository extends MongoRepository<CreditCard, ObjectId> {
 
-	//Locate Credit card status
 	@Query(value="{ card_status : ?0}",count = true)
 	List<CreditCard> findByStatus(String Status);
 	

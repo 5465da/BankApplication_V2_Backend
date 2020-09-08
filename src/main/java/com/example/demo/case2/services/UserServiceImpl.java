@@ -133,6 +133,7 @@ public class UserServiceImpl implements UserService {
 		return myJSONObjects;
 	}
 
+	// Add payees
 	@Override
 	public boolean addPayee(Payees refPayee, String email) {
 		Optional<User> user = this.refUserRepository.findByEmail(email);
@@ -147,6 +148,10 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
+	
+	/*
+	 * Get payees for mobile 
+	 */
 	@Override
 	public List<JSONObject> getPayeeMobile(String email) {
 		Optional<User> user = this.refUserRepository.findByEmail(email);
@@ -169,6 +174,10 @@ public class UserServiceImpl implements UserService {
 		return myJSONObjects;
 	}
 	
+	/*
+	 * 
+	 * Get all payess
+	 */
 	@Override
 	public List<JSONObject> getPayees(String email) {
 		Optional<User> user = this.refUserRepository.findByEmail(email);
@@ -191,6 +200,9 @@ public class UserServiceImpl implements UserService {
 		return myJSONObjects;
 	}
 
+	/*
+	 * Make payment
+	 */
 	@Override
 	public boolean pay(Payment_History refPay, String email) {
 
@@ -216,7 +228,12 @@ public class UserServiceImpl implements UserService {
 		else
 			return false;
 	}
-
+	
+	
+	/*
+	 * return payment history in json form
+	 * 
+	 */
 	@Override
 	public List<JSONObject> getPaymentHistory(String email) {
 		Optional<User> user = this.refUserRepository.findByEmail(email);
@@ -241,7 +258,10 @@ public class UserServiceImpl implements UserService {
 		return myJSONObjects;
 	}
 	
-	
+	/*
+	 * Get payment history by credit details
+	 * return in a json form
+	 */
 	@Override
 	public List<JSONObject> getCardPaymentHistory(CreditCard card) {
 	

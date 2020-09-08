@@ -158,6 +158,10 @@ public class AdminServiceImpl implements AdminService {
 		return myJSONObjects;
 	}
 
+	
+	/*
+	 * Get username
+	 */
 	@Override
 	public String getName(String email) {
 		Optional<User> user = this.refUserRepository.findByEmail(email);

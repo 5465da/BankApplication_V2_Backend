@@ -68,6 +68,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers("/register","/signin","/forgetpassword","/reset/**").permitAll()
 		.anyRequest().authenticated();
 
+		//Authenticate jwt token before entering site
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
 	}
