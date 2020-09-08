@@ -3,7 +3,13 @@ package com.example.demo.case2.models;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
 import org.bson.types.ObjectId;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,10 +21,15 @@ public class User implements UserDetails{
 	
 	private ObjectId id = new ObjectId();
 
+	@NotEmpty
 	private String name;
 	
+	@NotEmpty
+	@Email
 	private String email;
 	
+	@NotEmpty
+	@Size(min = 8, max = 30)
 	private String password;
 	
     private boolean accountNonExpired;

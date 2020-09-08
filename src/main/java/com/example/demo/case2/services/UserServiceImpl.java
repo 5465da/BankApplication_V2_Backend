@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.demo.case2.models.CreditCard;
@@ -16,6 +17,7 @@ import com.example.demo.case2.repository.CreditCardRepository;
 import com.example.demo.case2.repository.PayeesRepository;
 import com.example.demo.case2.repository.PaymentHistoryRepository;
 import com.example.demo.case2.repository.UserRepository;
+import com.mongodb.MongoClientException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -45,14 +47,15 @@ public class UserServiceImpl implements UserService {
 		Optional<User> users = this.refUserRepository.findByEmail(user.getEmail());
 		if (users.isPresent()) {
 			return false;
-		} else
-			user.setPassword(encoder.encode(user.getPassword()));
+		} 
+		else
+		user.setPassword(encoder.encode(user.getPassword()));
 		user.grantAuthority("USER");
 		user.setAccount_status("Pending");
 		refUserRepository.save(user);
+
 		return true;
 	}
-		
 
 	/*
 	 * 
@@ -148,9 +151,8 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
-	
 	/*
-	 * Get payees for mobile 
+	 * Get payees for mobile
 	 */
 	@Override
 	public List<JSONObject> getPayeeMobile(String email) {
@@ -173,7 +175,7 @@ public class UserServiceImpl implements UserService {
 
 		return myJSONObjects;
 	}
-	
+
 	/*
 	 * 
 	 * Get all payess
@@ -228,8 +230,7 @@ public class UserServiceImpl implements UserService {
 		else
 			return false;
 	}
-	
-	
+
 	/*
 	 * return payment history in json form
 	 * 
@@ -240,7 +241,7 @@ public class UserServiceImpl implements UserService {
 		List<CreditCard> refCard = this.refCardRepository.getCardDetails(user.get().getId());
 		Optional<Payment_History> refPayHistory;
 		List<JSONObject> myJSONObjects = new ArrayList<JSONObject>();
-		
+
 		for (CreditCard creditCard : refCard) {
 			JSONObject obj = new JSONObject();
 			refPayHistory = this.refPaymentHistoryRepo.findByCard2(creditCard.getId());
@@ -252,22 +253,21 @@ public class UserServiceImpl implements UserService {
 			obj.put("card", refPayHistory.get().getCard());
 			obj.put("card_type", creditCard.getCard_type());
 			myJSONObjects.add(obj);
-			
+
 		}
-		
+
 		return myJSONObjects;
 	}
-	
+
 	/*
-	 * Get payment history by credit details
-	 * return in a json form
+	 * Get payment history by credit details return in a json form
 	 */
 	@Override
 	public List<JSONObject> getCardPaymentHistory(CreditCard card) {
-	
+
 		List<JSONObject> myJSONObjects = new ArrayList<JSONObject>();
 		List<Payment_History> list = this.refPaymentHistoryRepo.findByCard3(card.getUser());
-		
+
 		for (Payment_History payment_History : list) {
 			JSONObject obj = new JSONObject();
 			obj.put("id", payment_History.getId());
@@ -280,7 +280,6 @@ public class UserServiceImpl implements UserService {
 		}
 		return myJSONObjects;
 	}
-
 
 	/*
 	 * Get Name
